@@ -1,0 +1,11 @@
+---
+version: "3"
+services:
+  webdav:
+    restart: always
+    image: bytemark/webdav
+    environment:
+      USERNAME: alice
+      PASSWORD: secret1234
+    ports:
+      - "8080:80"

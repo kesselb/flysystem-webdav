@@ -1,0 +1,30 @@
+{
+    "name": "league/flysystem-webdav",
+    "description": "Flysystem adapter for WebDAV",
+    "keywords": ["webdav", "flysystem", "filesystem", "storage", "file", "files"],
+    "type": "library",
+    "autoload": {
+        "psr-4": {
+            "League\\Flysystem\\WebDAV\\": ""
+        }
+    },
+    "require": {
+        "php": "^7.2",
+        "league/flysystem": "2.0.0-alpha.3",
+        "league/mime-type-detection": "^1.0.0",
+        "sabre/dav": "~4.1"
+    },
+    "require-dev": {
+        "league/flysystem-adapter-test-utilities": "*",
+        "phpunit/phpunit": "^8.5",
+        "phpstan/phpstan": "^0.12.9"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Frank de Jonge",
+            "email": "info@frenky.net"
+        }
+    ],
+    "minimum-stability": "dev"
+}

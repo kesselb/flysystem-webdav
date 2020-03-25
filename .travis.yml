@@ -1,0 +1,53 @@
+language: php
+
+services:
+  - docker
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+
+matrix:
+  include:
+    - php: 7.2
+      dist: bionic
+      env: COMPOSER_OPTS=""
+    - php: 7.2
+      dist: bionic
+      env: COMPOSER_OPTS="--prefer-lowest"
+    - php: 7.3
+      dist: bionic
+      env: COMPOSER_OPTS=""
+    - php: 7.3
+      dist: bionic
+      env: COMPOSER_OPTS="--prefer-lowest"
+    - php: 7.4
+      dist: bionic
+      env: COMPOSER_OPTS=""
+    - php: 7.4
+      dist: bionic
+      env: COMPOSER_OPTS="--prefer-lowest"
+    - php: nightly
+      dist: bionic
+      env: COMPOSER_OPTS="--ignore-platform-reqs"
+    - php: nightly
+      dist: bionic
+      env: COMPOSER_OPTS="--ignore-platform-reqs --prefer-lowest"
+  allow_failures:
+    - php: nightly
+      env: COMPOSER_OPTS="--ignore-platform-reqs"
+    - php: nightly
+      env: COMPOSER_OPTS="--ignore-platform-reqs --prefer-lowest"
+
+install:
+  - docker-compose -f test_files/docker-compose.yml up -d
+  - travis_retry composer update --prefer-dist $COMPOSER_OPTS
+  - php test_files/wait_for_webdav.php
+
+script:
+  - FLYSYSTEM_WEBDAV_BASEURI=http://localhost:8080 FLYSYSTEM_WEBDAV_USERNAME=alice FLYSYSTEM_WEBDAV_PASSWORD=secret1234 travis_retry vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
+  - vendor/bin/phpstan analyse -l 6 WebDAVFilesystem.php
+
+after_script:
+  - wget https://scrutinizer-ci.com/ocular.phar
+  - php ocular.phar code-coverage:upload --format=php-clover coverage.xml
