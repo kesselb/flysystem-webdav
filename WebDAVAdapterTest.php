@@ -9,7 +9,7 @@ use League\Flysystem\FilesystemAdapter;
 use League\Flysystem\UnableToSetVisibility;
 use Sabre\DAV\Client;
 
-class WebDAVFilesystemTest extends FilesystemAdapterTestCase
+class WebDAVAdapterTest extends FilesystemAdapterTestCase
 {
     private $client;
 
@@ -43,6 +43,6 @@ class WebDAVFilesystemTest extends FilesystemAdapterTestCase
             'password' => getenv('FLYSYSTEM_WEBDAV_PASSWORD') ?: null,
         ]);
 
-        return new WebDAVFilesystem($this->client);
+        return new WebDAVAdapter($this->client);
     }
 }

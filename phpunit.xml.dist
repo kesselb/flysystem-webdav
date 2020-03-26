@@ -2,7 +2,7 @@
 <phpunit colors="true">
     <testsuites>
         <testsuite name="FlysystemWebDAV">
-            <file>WebDAVFilesystemTest.php</file>
+            <file>WebDAVAdapterTest.php</file>
         </testsuite>
     </testsuites>
 </phpunit>

@@ -28,7 +28,7 @@ use Sabre\HTTP\ClientHttpException;
 use Sabre\HTTP\Request;
 use Sabre\HTTP\ResponseInterface;
 
-class WebDAVFilesystem implements FilesystemAdapter
+class WebDAVAdapter implements FilesystemAdapter
 {
     const DAV_GETCONTENTLENGTH = '{DAV:}getcontentlength';
     const DAV_GETCONTENTTYPE = '{DAV:}getcontenttype';
