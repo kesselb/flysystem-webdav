@@ -46,7 +46,7 @@ install:
 
 script:
   - FLYSYSTEM_WEBDAV_BASEURI=http://localhost:8080 FLYSYSTEM_WEBDAV_USERNAME=alice FLYSYSTEM_WEBDAV_PASSWORD=secret1234 travis_retry vendor/bin/phpunit --coverage-text --coverage-clover=coverage.xml
-  - vendor/bin/phpstan analyse -l 6 WebDAVFilesystem.php
+  - vendor/bin/phpstan analyse -l 6 WebDAVFilesystem.php InvalidResponseReceived.php
 
 after_script:
   - wget https://scrutinizer-ci.com/ocular.phar

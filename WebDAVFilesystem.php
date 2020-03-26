@@ -292,7 +292,11 @@ class WebDAVFilesystem implements FilesystemAdapter
     private function propFind(string $path, bool $deep): Generator
     {
         $location = $this->prefixer->prefixPath($path);
-        $response = $this->client->propFind($location, $this->properties, 1);
+        try {
+            $response = $this->client->propFind($location, $this->properties, 1);
+        } catch (ClientException|ClientHttpException $e) {
+            throw InvalidResponseReceived::propFind($path, $e);
+        }
         array_shift($response);
 
         foreach ($response as $itemPath => $item) {
@@ -352,7 +356,7 @@ class WebDAVFilesystem implements FilesystemAdapter
 
         try {
             $response = $this->client->propFind($location, $this->properties);
-        } catch (ClientHttpException $e) {
+        } catch (ClientException|ClientHttpException $e) {
             throw UnableToRetrieveMetadata::create($path, $type, $e->getMessage(), $e);
         }
 
